@@ -20,16 +20,16 @@ def max_after_shift(length, values) :
     ori_multiplied_sum = multiplied_sum(values)
     diff = 0
     for index, value in enumerate(values) :
-        if index > 0 : # left shift
-            for left_index in range(0, index):
+        for left_index in range(0, index):
                 newdiff = multiplied_sum_diff(values, index, left_index)
                 if newdiff > diff :
+                    print(index,left_index,newdiff)
                     diff = newdiff
-        elif index < (length-1) : # right shift
-            for right_index in range(index, length):
-                newdiff = multiplied_sum_diff(values, index, right_index)
-                if newdiff > diff :
-                    diff = newdiff
+        for right_index in range(index, length):
+            newdiff = multiplied_sum_diff(values, index, right_index)
+            if newdiff > diff :
+                print(index,right_index,newdiff)
+                diff = newdiff
     return ori_multiplied_sum + diff
 
 if __name__ == '__main__' :
@@ -39,9 +39,6 @@ if __name__ == '__main__' :
 
 
 class shift_test(unittest.TestCase) :
-    def setUp(self):
-        self.huge_sample = [ random.randrange(0,1000000) for i in range(200000) ]
-        self.huge_sample_length = 200000
     def test_multiplied_sum(self) :
         self.assertEqual(multiplied_sum([4,3,2,5]), 36)
     def test_ex1(self):
@@ -50,5 +47,5 @@ class shift_test(unittest.TestCase) :
         self.assertEqual(max_after_shift(5,[1,1,2,7,1]), 49)
     # def test_gen(self):
         # [ random.randrange(0,1000000) for i in range(200000) ]
-    def test_huge(self) :
-        max_after_shift(self.huge_sample_length, self.huge_sample )
+    #def test_huge(self) :
+    #    print (max_after_shift(self.huge_sample_length, self.huge_sample ) )
